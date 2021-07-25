@@ -10,13 +10,15 @@ struct Solution;
 impl Solution {
     pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
         let mut idxs = HashMap::new();
+
         for (j, num) in nums.iter().enumerate() {
             match idxs.get(&(target - num)) {
-                Some(i) => return vec![*i, j as i32],
                 None => idxs.insert(num, j as i32),
+                Some(i) => return vec![*i, j as i32],
             };
         }
-        vec![]
+
+        panic!("Impossible to have no valid answers!");
     }
 }
 
@@ -31,42 +33,17 @@ mod tests {
 
     #[test]
     fn test_two_sum_example_1() {
-        let nums = vec![2, 7, 11, 15];
-        let target = 9;
-        let want = vec![0, 1];
-        helper(nums, target, want);
+        helper(vec![2, 7, 11, 15], 9, vec![0, 1]);
     }
 
     #[test]
     fn test_two_sum_example_2() {
-        let nums = vec![3, 2, 4];
-        let target = 6;
-        let want = vec![1, 2];
-        helper(nums, target, want);
+        helper(vec![3, 2, 4], 6, vec![1, 2]);
     }
 
     #[test]
     fn test_two_sum_example_3() {
-        let nums = vec![3, 3];
-        let target = 6;
-        let want = vec![0, 1];
-        helper(nums, target, want);
-    }
-
-    #[test]
-    fn test_two_sum_empty() {
-        let nums = vec![];
-        let target = 5;
-        let want = vec![];
-        helper(nums, target, want);
-    }
-
-    #[test]
-    fn test_two_sum_no_result() {
-        let nums = vec![1, 2, 3, 4];
-        let target = 15;
-        let want = vec![];
-        helper(nums, target, want);
+        helper(vec![3, 3], 6, vec![0, 1]);
     }
 
 }
