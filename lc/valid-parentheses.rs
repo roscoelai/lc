@@ -12,14 +12,14 @@ impl Solution {
         let mut stack = Vec::new();
 
         for x in s.chars() {
-            match x {
-                '(' => stack.push(')'),
-                '[' => stack.push(']'),
-                '{' => stack.push('}'),
+            stack.push(match x {
+                '(' => ')',
+                '[' => ']',
+                '{' => '}',
                 ')' | ']' | '}' if Some(x) != stack.pop() => return false,
-                ')' | ']' | '}' => (),
+                ')' | ']' | '}' => continue,
                 _ => return false,
-            };
+            });
         }
 
         stack.is_empty()
