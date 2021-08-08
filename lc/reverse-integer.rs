@@ -1,13 +1,11 @@
-//! rustc reverse-integer.rs --test
-//! ./reverse-integer.exe
-
-fn main() {}
-
 struct Solution;
 
 impl Solution {
     pub fn reverse(x: i32) -> i32 {
-        let mut aux = x.abs();
+        let mut aux = match x.checked_abs() {
+            Some(v) => v,
+            None => return 0,
+        };
         let mut res: i32 = 0;
 
         while aux > 0 {
@@ -37,33 +35,21 @@ mod tests {
     }
 
     #[test]
-    fn test_reverse_example_1() {
-        helper(123, 321);
-    }
+    fn test_reverse_1() { helper(123, 321); }
 
     #[test]
-    fn test_reverse_example_2() {
-        helper(-123, -321);
-    }
+    fn test_reverse_2() { helper(-123, -321); }
 
     #[test]
-    fn test_reverse_example_3() {
-        helper(120, 21);
-    }
+    fn test_reverse_3() { helper(120, 21); }
 
     #[test]
-    fn test_reverse_example_4() {
-        helper(0, 0);
-    }
+    fn test_reverse_4() { helper(0, 0); }
 
     #[test]
-    fn test_reverse_over() {
-        helper(1123456789, 0);
-    }
+    fn test_reverse_max() { helper(2147483647, 0); }
 
     #[test]
-    fn test_reverse_under() {
-        helper(-1123456789, 0);
-    }
+    fn test_reverse_min() { helper(-2147483648, 0); }
 
 }
