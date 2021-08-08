@@ -1,8 +1,3 @@
-//! rustc palindrome-number.rs --test
-//! ./palindrome-number.exe
-
-fn main() {}
-
 struct Solution;
 
 impl Solution {
@@ -34,21 +29,21 @@ mod tests {
 
     fn helper(x: i32, want: bool) {
         let got = Solution::is_palindrome(x);
-        eprintln!("got is_palindrome({}) = {}, want {}", x, got, want);
+        eprintln!("is_palindrome({:?}) = {:?}", x, got);
         assert_eq!(got, want);
     }
 
     #[test]
-    fn test_is_palindrome_example_1() { helper(121, true); }
+    fn test_is_palindrome_1() { helper(121, true); }
 
     #[test]
-    fn test_is_palindrome_example_2() { helper(-121, false); }
+    fn test_is_palindrome_2() { helper(-121, false); }
 
     #[test]
-    fn test_is_palindrome_example_3() { helper(10, false); }
+    fn test_is_palindrome_3() { helper(10, false); }
 
     #[test]
-    fn test_is_palindrome_example_4() { helper(-101, false); }
+    fn test_is_palindrome_4() { helper(-101, false); }
 
     #[test]
     fn test_is_palindrome_high_even() { helper(1234554321, true); }
