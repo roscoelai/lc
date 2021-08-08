@@ -1,8 +1,3 @@
-//! rustc valid-parentheses.rs --test
-//! ./valid-parentheses.exe
-
-fn main() {}
-
 struct Solution;
 
 impl Solution {
@@ -32,29 +27,29 @@ mod tests {
 
     fn helper(s: &str, want: bool) {
         let got = Solution::is_valid(s.to_string());
-        eprintln!("got is_valid('{}') = {}, want {}", s, got, want);
+        eprintln!("is_valid({:?}) = {:?}", s, got);
         assert_eq!(got, want);
     }
 
     #[test]
-    fn test_is_valid_example_1() { helper("()", true); }
+    fn test_is_valid_1() { helper("()", true); }
 
     #[test]
-    fn test_is_valid_example_2() { helper("()[]{}", true); }
+    fn test_is_valid_2() { helper("()[]{}", true); }
 
     #[test]
-    fn test_is_valid_example_3() { helper("(]", false); }
+    fn test_is_valid_3() { helper("(]", false); }
 
     #[test]
-    fn test_is_valid_example_4() { helper("([)]", false); }
+    fn test_is_valid_4() { helper("([)]", false); }
 
     #[test]
-    fn test_is_valid_example_5() { helper("{[]}", true); }
+    fn test_is_valid_5() { helper("{[]}", true); }
 
     #[test]
-    fn test_is_valid_example_6() { helper("{{}[][[[]]]}", true); }
+    fn test_is_valid_6() { helper("{{}[][[[]]]}", true); }
 
     #[test]
-    fn test_is_valid_example_7() { helper("{{({})}}", true); }
+    fn test_is_valid_7() { helper("{{({})}}", true); }
 
 }
