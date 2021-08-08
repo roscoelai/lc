@@ -1,16 +1,11 @@
-//! rustc longest-substring-without-repeating-characters.rs --test
-//! ./longest-substring-without-repeating-characters.exe
-
 use std::collections::HashSet;
-
-fn main() {}
 
 struct Solution;
 
 impl Solution {
     pub fn length_of_longest_substring(s: String) -> i32 {
         let mut chars = HashSet::new();
-        let mut lengths = Vec::new();
+        let mut lengths = Vec::with_capacity(s.len());
         let mut length = 0;
 
         for c in s.chars() {
@@ -33,27 +28,20 @@ mod tests {
 
     fn helper(s: &str, want: i32) {
         let got = Solution::length_of_longest_substring(s.to_string());
+        eprintln!("length_of_longest_substring({:?}) = {:?}", s, got);
         assert_eq!(got, want);
     }
 
     #[test]
-    fn test_length_of_longest_substring_example_1() {
-        helper("abcabcbb", 3);
-    }
+    fn test_length_of_longest_substring_1() { helper("abcabcbb", 3); }
 
     #[test]
-    fn test_length_of_longest_substring_example_2() {
-        helper("bbbbb", 1);
-    }
+    fn test_length_of_longest_substring_2() { helper("bbbbb", 1); }
 
     #[test]
-    fn test_length_of_longest_substring_example_3() {
-        helper("pwwkew", 3);
-    }
+    fn test_length_of_longest_substring_3() { helper("pwwkew", 3); }
 
     #[test]
-    fn test_length_of_longest_substring_example_4() {
-        helper("", 0);
-    }
+    fn test_length_of_longest_substring_4() { helper("", 0); }
 
 }
