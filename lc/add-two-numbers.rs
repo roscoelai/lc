@@ -1,41 +1,42 @@
-//! rustc add-two-numbers.rs --test
-//! ./add-two-numbers.exe
-
-fn main() {}
-
 // Definition for singly-linked list.
 #[derive(PartialEq, Eq, Clone, Debug)]
 pub struct ListNode {
-  pub val: i32,
-  pub next: Option<Box<ListNode>>
+    pub val: i32,
+    pub next: Option<Box<ListNode>>
 }
 
 impl ListNode {
-  #[inline]
-  fn new(val: i32) -> Self {
-    ListNode {
-      next: None,
-      val
+    #[inline]
+    fn new(val: i32) -> Self {
+        ListNode {
+            next: None,
+            val
+        }
     }
-  }
 
-  fn from_vec(v: Vec<i32>) -> Option<Box<Self>> {
-      let mut n = None;
-      for x in v.iter().rev() {
+    fn from_vec(v: Vec<i32>) -> Option<Box<Self>> {
+        let mut n = None;
+        for x in v.iter().rev() {
           n = Some(Box::new(ListNode { val: *x, next: n } ));
-      }
-      n
-  }
+        }
+        n
+    }
+}
 
-  fn to_vec(ln: Option<Box<Self>>) -> Vec<i32> {
-      let mut res = Vec::new();
-      let mut n = ln;
-      while let Some(v) = n {
+trait ToVec {
+    fn to_vec(&self) -> Vec<i32>;
+}
+
+impl ToVec for Option<Box<ListNode>> {
+    fn to_vec(&self) -> Vec<i32> {
+        let mut res = Vec::new();
+        let mut n = self;
+        while let Some(v) = n {
           res.push(v.val);
-          n = v.next;
-      }
-      res
-  }
+          n = &v.next;
+        }
+        res
+    }
 }
 
 struct Solution;
@@ -44,7 +45,8 @@ impl Solution {
     pub fn add_two_numbers(
         l1: Option<Box<ListNode>>, 
         l2: Option<Box<ListNode>>
-    ) -> Option<Box<ListNode>> {
+    ) -> Option<Box<ListNode>>
+    {
         Self::merge_two(l1, l2, 0)
     }
 
@@ -81,8 +83,7 @@ mod tests {
     fn helper(v1: Vec<i32>, v2: Vec<i32>, want: Vec<i32>) {
         let l1 = ListNode::from_vec(v1.clone());
         let l2 = ListNode::from_vec(v2.clone());
-        let got = Solution::add_two_numbers(l1, l2);
-        let got = ListNode::to_vec(got);
+        let got = Solution::add_two_numbers(l1, l2).to_vec();
         eprintln!("got add_two_numbers({:?}, {:?}) = {:?}, want {:?}", 
                   v1, v2, got, want);
         assert_eq!(got, want);
